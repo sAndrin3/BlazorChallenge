@@ -1,0 +1,63 @@
+<EditForm Model="newBook" OnValidSubmit="submitForm">
+    <div class="cardh">
+        @if (IsEditing)
+        {
+            <h1>Edit Book</h1>
+        }
+        else
+        {
+            <h1> Add Book</h1>
+        }
+    </div>
+    <div class="book" style="margin-bottom: 20px;">
+        <label for="Title" style="font-weight: bold; display: block;">Title</label>
+        <input type="text" class="form" @bind-value=@newBook.Title id="Title" placeholder="Todo Title"
+            style="width: 40%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <div class="book" style="margin-bottom: 20px;">
+        <label for="Description" style="font-weight: bold; display: block;">Description</label>
+        <input type="text" class="form" @bind-value=@newBook.Description id="Title" placeholder="Todo Title"
+            style="width: 40%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <div class="book" style="margin-bottom: 20px;">
+        <label for="Author" style="font-weight: bold; display: block;">Author</label>
+        <input type="text" class="form" @bind-value=@newBook.Author id="Title" placeholder="Todo Title"
+            style="width: 40%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <div>
+        <button @onclick="@(IsEditing ? UpdateBook : InsertNewBook)" class="btn btn-primary">@(IsEditing ? "Update" :
+            "Add")</button>
+    </div>
+</EditForm>
+
+@code {
+    public BookDto newBook = new BookDto()
+        {
+            Id = Guid.NewGuid()
+        };
+    [Parameter]
+    public EventCallback<BookDto> AddnewBook { get; set; }
+    [Parameter]
+    public EventCallback<BookDto> onEditBook { get; set; }
+
+    private bool IsEditing = false;
+    [Parameter]
+    public BookDto EditBookProp { get; set; }
+    public async Task InsertNewBook()
+    {
+        await AddnewBook.InvokeAsync(newBook);
+        newBook = new BookDto();
+    }
+    public async Task UpdateBook()
+    {
+        await onEditBook.InvokeAsync(newBook);
+        newBook = new BookDto();
+    }
+    private void submitForm()
+    {
+
+    }
+}

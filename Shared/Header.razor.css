@@ -1,0 +1,10 @@
+.header{
+    background: linear-gradient(to right, #fc354c, #0abfbc);
+    color: #fff;
+    display: flex;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100vw;
+}

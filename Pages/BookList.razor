@@ -1,0 +1,64 @@
+@page "/"
+
+<div class="row">
+
+    <div class="col-4">
+        @if (selectedBook != null)
+        {
+        <AddBook onEditTodo="EditBook" EditBookProp="selectedBook" />
+        }
+        else
+        {
+        <AddBook AddnewBook="AddNewBook" onEditBook="EditBook" />
+        }
+
+    </div>
+
+    <div class="col-8">
+        @if (Books.Count == 0)
+        {
+            <p><i>No Book Available</i></p>
+        }
+        else
+        {
+            <div class="row">
+                @foreach (var Book in Books)
+                {
+                    <DisplayBook Bookdto="@Book" DeleteId="DeleteBook" OnEditBook="EditBook" />
+                }
+            </div>
+        }
+    </div>
+</div>
+@code {
+    private List<BookDto> Books = new List<BookDto>(){
+        new BookDto(){
+        Id = Guid.NewGuid(),
+        Title = "Learning C#dotnet",
+        Description = "C# basics",
+        Author = new List<string>(){"Sandrine"}
+        }
+        };
+    public void AddNewBook(BookDto Book)
+    {
+        this.Books.Add(Book);
+    }
+    public void DeleteBook(Guid id)
+    {
+        try
+        {
+            var BookToDelete = this.Books.Find(x => x.Id == id);
+            this.Books.Remove(BookToDelete);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private BookDto selectedBook;
+    public void EditBook(BookDto book)
+    {
+        selectedBook = book;
+    }
+}
