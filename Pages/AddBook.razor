@@ -1,35 +1,40 @@
 <EditForm Model="newBook" OnValidSubmit="submitForm">
     <div class="cardh">
-        @if (IsEditing)
+        @* @if (IsEditing)
         {
             <h1>Edit Book</h1>
         }
         else
         {
             <h1> Add Book</h1>
-        }
+        } *@
     </div>
     <div class="book" style="margin-bottom: 20px;">
         <label for="Title" style="font-weight: bold; display: block;">Title</label>
-        <input type="text" class="form" @bind-value=@newBook.Title id="Title" placeholder="Todo Title"
-            style="width: 40%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="text" class="form" @bind-value=@newBook.Title id="Title" placeholder="Book Title"
+            style="width: 50%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
     </div>
 
-    <div class="book" style="margin-bottom: 20px;">
+       <div class="book" style="margin-bottom: 20px;">
         <label for="Description" style="font-weight: bold; display: block;">Description</label>
-        <input type="text" class="form" @bind-value=@newBook.Description id="Title" placeholder="Todo Title"
-            style="width: 40%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="text" class="form" @bind-value=@newBook.Description id="Title" placeholder="Book Description"
+            style="width: 50%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
     </div>
 
-    <div class="book" style="margin-bottom: 20px;">
-        <label for="Author" style="font-weight: bold; display: block;">Author</label>
-        <input type="text" class="form" @bind-value=@newBook.Author id="Title" placeholder="Todo Title"
-            style="width: 40%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
+<div class="book" style="margin-bottom: 20px;">
+    <label for="Authors" style="font-weight: bold; display: block;">Authors</label>
+    @foreach (var author in newBook.Author)
+    {
+        @* var currentAuthor = author; *@
+        <input type="text" @bind="@author.Name" id="Author" placeholder="Author"
+               style="width: 50%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;" />
+        
+    }
+    <button type="button" onclick="@(()=>newBook.Author.Add(new AuthorDto()))" class="mt-4 btn btn-primary">Add Author</button>
+</div>
 
     <div>
-        <button @onclick="@(IsEditing ? UpdateBook : InsertNewBook)" class="btn btn-primary">@(IsEditing ? "Update" :
-            "Add")</button>
+        <button @onclick="@(IsEditing ? UpdateBook : InsertNewBook)" class="btn btn-primary">@(IsEditing ? "Update" : "Add")</button>
     </div>
 </EditForm>
 
@@ -43,9 +48,14 @@
     [Parameter]
     public EventCallback<BookDto> onEditBook { get; set; }
 
-    private bool IsEditing = false;
+    public bool IsEditing = false;
     [Parameter]
-    public BookDto EditBookProp { get; set; }
+    public BookDto EditBookProp { 
+        get => newBook;
+        set{
+            newBook = value;
+            IsEditing = value !=null;
+        }}
     public async Task InsertNewBook()
     {
         await AddnewBook.InvokeAsync(newBook);
@@ -56,8 +66,11 @@
         await onEditBook.InvokeAsync(newBook);
         newBook = new BookDto();
     }
-    private void submitForm()
+    public void submitForm()
     {
 
+    }
+    private void addInput(){
+        newBook.Author.Add(new AuthorDto());
     }
 }

@@ -5,7 +5,7 @@
     <div class="col-4">
         @if (selectedBook != null)
         {
-        <AddBook onEditTodo="EditBook" EditBookProp="selectedBook" />
+        <AddBook onEditBook="EditBook" EditBookProp="selectedBook" />
         }
         else
         {
@@ -31,12 +31,15 @@
     </div>
 </div>
 @code {
-    private List<BookDto> Books = new List<BookDto>(){
-        new BookDto(){
-        Id = Guid.NewGuid(),
-        Title = "Learning C#dotnet",
-        Description = "C# basics",
-        Author = new List<string>(){"Sandrine"}
+    private List<BookDto> Books = new List<BookDto>()
+        {
+        new BookDto()
+        {
+            Id = Guid.NewGuid(),
+            Title = "Learning C#dotnet",
+            Description = "C# basics",
+            Author = new List<AuthorDto>{
+                new AuthorDto{ Name = "Sandrine"}}
         }
         };
     public void AddNewBook(BookDto Book)

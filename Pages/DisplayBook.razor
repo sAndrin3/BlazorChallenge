@@ -2,7 +2,11 @@
   <div class="card-body">
     <h5 class="card-title">@Bookdto.Title</h5>
     <p class="card-text">@Bookdto.Description</p>
-    <p class = "card-text">@Bookdto.Author.First()</p>
+    @foreach(var Author in Bookdto.Author){
+      <p class = "card-text">@Author.Name</p>
+    }
+      <span>@Bookdto.CreatedAt</span>
+      <br>
      <button @onclick="DeleteBook" class="btn btn-danger">Delete</button>
     <button  @onclick = "(()=> EditBook(Bookdto))"class="btn btn-primary">Edit</button>
 
@@ -11,7 +15,7 @@
 
 @code{
     [Parameter]
-    public BookDto Bookdto {get; set; }
+    public BookDto Bookdto {get; set; } 
     [Parameter]
     public EventCallback<Guid> DeleteId {get; set; }
 
