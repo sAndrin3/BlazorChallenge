@@ -1,40 +1,63 @@
+@inject IJSRuntime jsRuntime;
 <EditForm Model="newBook" OnValidSubmit="submitForm">
+    <DataAnnotationsValidator />
     <div class="cardh">
         @* @if (IsEditing)
         {
-            <h1>Edit Book</h1>
+        <h1>Edit Book</h1>
         }
         else
         {
-            <h1> Add Book</h1>
+        <h1> Add Book</h1>
         } *@
     </div>
     <div class="book" style="margin-bottom: 20px;">
         <label for="Title" style="font-weight: bold; display: block;">Title</label>
         <input type="text" class="form" @bind-value=@newBook.Title id="Title" placeholder="Book Title"
             style="width: 50%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
+        <ValidationMessage For="@(()=>newBook.Title)" />
     </div>
 
-       <div class="book" style="margin-bottom: 20px;">
+    <div class="book" style="margin-bottom: 20px;">
         <label for="Description" style="font-weight: bold; display: block;">Description</label>
         <input type="text" class="form" @bind-value=@newBook.Description id="Title" placeholder="Book Description"
             style="width: 50%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;">
+        <ValidationMessage For="@(()=>newBook.Description)" />
     </div>
 
-<div class="book" style="margin-bottom: 20px;">
-    <label for="Authors" style="font-weight: bold; display: block;">Authors</label>
-    @foreach (var author in newBook.Author)
-    {
-        @* var currentAuthor = author; *@
-        <input type="text" @bind="@author.Name" id="Author" placeholder="Author"
-               style="width: 50%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;" />
-        
-    }
-    <button type="button" onclick="@(()=>newBook.Author.Add(new AuthorDto()))" class="mt-4 btn btn-primary">Add Author</button>
-</div>
+    <div class="book" style="margin-bottom: 20px;">
+        <label for="Authors" style="font-weight: bold; display: block;">Authors</label>
+        @foreach (var author in newBook.Author)
+        {
+            @* var currentAuthor = author; *@
+            <input type="text" @bind="@author.Name" id="Author" placeholder="Author"
+                style="width: 50%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px;" />
+            <ValidationMessage For="@(()=>author.Name)" />
 
-    <div>
-        <button @onclick="@(IsEditing ? UpdateBook : InsertNewBook)" class="btn btn-primary">@(IsEditing ? "Update" : "Add")</button>
+        }
+
+        <ValidationMessage For="@(() => newBook.Author)" />
+
+        <button type="button" onclick="@(()=>newBook.Author.Add(new AuthorDto()))" class="mt-4 btn btn-primary">Add
+            Author</button>
+    </div>
+
+       <div>
+        <button @onclick="@(async () =>
+        {
+            if (IsEditing)
+            {
+                await UpdateBook();
+            }
+            else
+            {
+                confirmBox();
+                if (isConfirmed)
+                {
+                    await InsertNewBook();
+                }
+            }
+        })" class="btn btn-primary">@(IsEditing ? "Update" : "Add")</button>
     </div>
 </EditForm>
 
@@ -50,12 +73,15 @@
 
     public bool IsEditing = false;
     [Parameter]
-    public BookDto EditBookProp { 
+    public BookDto EditBookProp
+    {
         get => newBook;
-        set{
+        set
+        {
             newBook = value;
-            IsEditing = value !=null;
-        }}
+            IsEditing = value != null;
+        }
+    }
     public async Task InsertNewBook()
     {
         await AddnewBook.InvokeAsync(newBook);
@@ -66,11 +92,34 @@
         await onEditBook.InvokeAsync(newBook);
         newBook = new BookDto();
     }
-    public void submitForm()
+    private bool isConfirmed;
+    private async Task confirmBox()
+    {
+        isConfirmed = await jsRuntime.InvokeAsync<bool>("confirm", "Do you want to Confirm your Book");
+        if (isConfirmed)
+        {
+            showSuccess();
+        }
+        else
+        {
+            showError();
+        }
+
+    }
+    private void showError()
+    {
+        jsRuntime.InvokeVoidAsync("ShowAlert", "Cancelled", "error");
+    }
+    private void showSuccess()
+    {
+        jsRuntime.InvokeVoidAsync("ShowAlert", "You have successfully Added a Todo", "success");
+    }
+    private void submitForm()
     {
 
     }
-    private void addInput(){
+    private void addInput()
+    {
         newBook.Author.Add(new AuthorDto());
     }
 }

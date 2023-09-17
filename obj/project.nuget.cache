@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "b1vaJvgCbfipMy96mxbuU5f1dAbj+grOrg6OFWelYXOZ9Da5SHlzqkkau4reQg1AjMzQD+V2Pp5qQwjUmCKd/g==",
+  "dgSpecHash": "m34dFQ0EqLf919PLQZ6OmgRqVIGu5yV0s2kbeqUUBL4zfeGmU/dQf0wh1hZVpVxlEyuRrnszyvk4l0PXB+7XMA==",
   "success": true,
   "projectFilePath": "/home/petrolhead/Documents/Jitu-Codes./C#dotnet/BlazorAssessment/BookMgmt/BookMgmt.csproj",
   "expectedPackageFiles": [
@@ -28,6 +28,7 @@
     "/home/petrolhead/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/home/petrolhead/.nuget/packages/microsoft.jsinterop/7.0.10/microsoft.jsinterop.7.0.10.nupkg.sha512",
     "/home/petrolhead/.nuget/packages/microsoft.jsinterop.webassembly/7.0.10/microsoft.jsinterop.webassembly.7.0.10.nupkg.sha512",
+    "/home/petrolhead/.nuget/packages/system.componentmodel.annotations/5.0.0/system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "/home/petrolhead/.nuget/packages/system.io.pipelines/7.0.0/system.io.pipelines.7.0.0.nupkg.sha512",
     "/home/petrolhead/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
     "/home/petrolhead/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512",

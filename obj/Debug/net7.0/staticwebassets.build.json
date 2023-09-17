@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EEKMnY3oeYz40kDo9WEytJByHzubgWp2P4POvDqfRdQ=",
+  "Hash": "6o6IITfn9zGevCXWURmYR3fh3VSWDSPTA3wfLp9gf/0=",
   "Source": "BookMgmt",
   "BasePath": "/",
   "Mode": "Root",
@@ -7155,6 +7155,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/index.html"
+    },
+    {
+      "Identity": "/home/petrolhead/Documents/Jitu-Codes./C#dotnet/BlazorAssessment/BookMgmt/wwwroot/Js/Index.js",
+      "SourceId": "BookMgmt",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/petrolhead/Documents/Jitu-Codes./C#dotnet/BlazorAssessment/BookMgmt/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "Js/Index.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/Js/Index.js"
     },
     {
       "Identity": "/home/petrolhead/Documents/Jitu-Codes./C#dotnet/BlazorAssessment/BookMgmt/wwwroot/sample-data/weather.json",

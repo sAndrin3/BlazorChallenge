@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets/BookMgmt.styles.css"
     },
     {
+      "Id": "/home/petrolhead/Documents/Jitu-Codes./C#dotnet/BlazorAssessment/BookMgmt/wwwroot/Js/Index.js",
+      "PackagePath": "staticwebassets/Js/Index.js"
+    },
+    {
       "Id": "/home/petrolhead/Documents/Jitu-Codes./C#dotnet/BlazorAssessment/BookMgmt/wwwroot/css/app.css",
       "PackagePath": "staticwebassets/css/app.css"
     },
